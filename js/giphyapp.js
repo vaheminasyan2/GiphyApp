@@ -30,7 +30,7 @@ function onclickListenerButton() {
             var results = response.data;
             for (var i = 0; i < results.length; i++) {
 
-                var sportDiv = $("<div>");
+                var sportDiv = $("<div>").addClass("imageBlock");
 
                 var p = $("<p>");
                 p.text("Rating: " + results[i].rating);
@@ -38,8 +38,8 @@ function onclickListenerButton() {
                 var sportImage = $("<img>");
                 sportImage.attr("src", results[i].images.fixed_height_small_still.url).attr("data-still", results[i].images.fixed_height_small_still.url).attr("data-animate", results[i].images.fixed_height_small.url).attr("data-state", "still").addClass("gif");
 
-                sportDiv.append(p).addClass("imageBlock");
                 sportDiv.append(sportImage);
+                sportDiv.append(p);
                 $(".main-content").append(sportDiv);
             };
         });
