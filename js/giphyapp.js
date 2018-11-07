@@ -48,17 +48,9 @@ function onclickListenerButton() {
 onclickListenerButton();
 
 // Create a function to play and pause GIFs
-
 function onclickListenerGIF() {
-$(".gif").on("click", function () {
-
-    //alert("test");
-    //console.log("1")
-    
-    //var state = $(this).attr("data-state");
-    //console.log(state);
-
-    
+    $(document).on("click", ".gif", function () {
+        var state = $(this).attr("data-state");
         if (state === "still") {
             $(this).attr("src", $(this).attr("data-animate"));
             $(this).attr("data-state", "animate");
@@ -67,26 +59,23 @@ $(".gif").on("click", function () {
             $(this).attr("src", $(this).attr("data-still"));
             $(this).attr("data-state", "still");
         };
-        
-});
+
+    });
 };
 onclickListenerGIF();
 
 
 // Create a function to generate a new sportButton based on user's entry into the search box
-$(".addItem-button").on("click", function () {
+
+$(".addItemButton").on("click", function () {
     event.preventDefault();
     var newSport = $("#addItem").val().trim().toLowerCase();
+    $("#addItem").val("");
     if (newSport !== "") {
-    //console.log(newSport);
-    sports.push(newSport);
-    renderButtons();
-    onclickListenerButton();
-    onclickListenerGIF();
+        //console.log(newSport);
+        sports.push(newSport);
+        renderButtons();
+        onclickListenerButton();
     }
 });
-
-
 //$(document).ready(function() {});
-
-
