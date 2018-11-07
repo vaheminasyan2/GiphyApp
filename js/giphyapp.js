@@ -12,7 +12,6 @@ function renderButtons() {
         $(".buttons").append(y).append(" ");
     };
 };
-renderButtons();
 
 // Create a function to publish GIF images to the mage using API call
 function onclickListenerButton() {
@@ -45,7 +44,6 @@ function onclickListenerButton() {
         });
     });
 };
-onclickListenerButton();
 
 // Create a function to play and pause GIFs
 function onclickListenerGIF() {
@@ -62,20 +60,25 @@ function onclickListenerGIF() {
 
     });
 };
-onclickListenerGIF();
-
 
 // Create a function to generate a new sportButton based on user's entry into the search box
+function addButton() {
+    $(".addItemButton").on("click", function () {
+        event.preventDefault();
+        var newSport = $("#addItem").val().trim().toLowerCase();
+        $("#addItem").val("");
+        if (newSport !== "") {
+            //console.log(newSport);
+            sports.push(newSport);
+            renderButtons();
+            onclickListenerButton();
+        }
+    });
+};
 
-$(".addItemButton").on("click", function () {
-    event.preventDefault();
-    var newSport = $("#addItem").val().trim().toLowerCase();
-    $("#addItem").val("");
-    if (newSport !== "") {
-        //console.log(newSport);
-        sports.push(newSport);
-        renderButtons();
-        onclickListenerButton();
-    }
+$(document).ready(function () {
+    renderButtons();
+    onclickListenerButton();
+    onclickListenerGIF();
+    addButton();
 });
-//$(document).ready(function() {});
