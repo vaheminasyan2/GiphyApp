@@ -15,7 +15,6 @@ function renderButtons() {
 
 // Create a function to publish GIF images to the page using API call
 function onclickListenerButton() {
-
     $(".sport-button").on("click", function () {
         var num = 10;
         $(".main-content").empty();
@@ -35,7 +34,7 @@ function onclickListenerButton() {
                 var ratingText = $("<p>");
                 ratingText.text("Rating: " + results[i].rating);
 
-                var downloadButton = $("<a>").attr("href", results[i].images.original.url).attr("download", "gif" + i).text("Download").attr("target", "_blank");
+                var downloadButton = $("<a>").attr("href", results[i].images.original.url).attr("download", "").text("Download").attr("target", "_blank");
 
                 var favoriteButton = $("<a>").attr("href", "#").text("Add to Favorites").attr("id", "favorites").attr("data-still", results[i].images.fixed_width_still.url).attr("data-animate", results[i].images.fixed_width.url).attr("data-state", "still").addClass("gif").attr("rating", results[i].rating);
 
@@ -66,8 +65,9 @@ function onclickListenerButton() {
 
                     var ratingText = $("<p>");
                     ratingText.text("Rating: " + results[i].rating);
-
-                    var downloadButton = $("<a>").attr("href", results[i].images.original.url).attr("download", "gif" + i).text("Download").attr("target", "_blank");
+                    
+                    //Doesn't download
+                    var downloadButton = $("<a>").attr("href", results[i].images.original.url).attr("download", true).text("Download").attr("target", "_blank");
 
                     var favoriteButton = $("<a>").attr("href", "#").text("Add to Favorites").attr("id", "favorites").attr("data-still", results[i].images.fixed_width_still.url).attr("data-animate", results[i].images.fixed_width.url).attr("data-state", "still").addClass("gif").attr("rating", results[i].rating);
 
@@ -89,11 +89,13 @@ function onclickListenerButton() {
 function renderFavorites(list) {
     $(".favoritesBox").empty();
     for (var i = 0; i < list.length; i++) {
-        var sportDiv = $("<div>");
-        var ratingText = $("<p>").text("Rating: " + list[i].ratingText);
+        var sportDiv = $("<div>").addClass("imageBlock");
+        var ratingText = $("<a>").text("Rating: " + list[i].ratingText);
+        var removeFromFav = $("<a>").attr("href", "#").text("Remove").attr("id","remove").attr("data", i);
         var sportImage = $("<img>").attr("src", list[i].src).attr("data-still", list[i].dataStill).attr("data-animate", list[i].dataAnimate).attr("data-state", list[i].dataState).addClass("gif");
-        sportDiv.append(sportImage);
-        sportDiv.append(ratingText);
+        sportDiv.append(sportImage).append("<br>");
+        sportDiv.append(ratingText).append(" | ");
+        sportDiv.append(removeFromFav);
         $(".favoritesBox").append(sportDiv);
     }
 }
@@ -104,8 +106,8 @@ function favorites() {
         var ratingText = $(this).attr("rating");
         var src = $(this).attr("data-still");
         var dataStill = $(this).attr("data-still");
-        var dataAnimate = $(this).attr("data-animate")
-        var dataState = $(this).attr("data-state")
+        var dataAnimate = $(this).attr("data-animate");
+        var dataState = $(this).attr("data-state");
 
 
         list.push({ ratingText: ratingText, src: src, dataStill: dataStill, dataAnimate: dataAnimate, dataState: dataState });
@@ -116,7 +118,15 @@ function favorites() {
     })
 };
 
-// Initialize list array, make it empyt if sessionStorage is empty 
+$(document).on("click", "#remove", function (){
+    event.preventDefault();
+    var index = $(this).attr("data");
+    list.splice(index, 1);
+    renderFavorites(list);
+    sessionStorage.setItem("favoritesSS", JSON.stringify(list));
+})
+
+// Initialize list array, make it empty if sessionStorage is empty 
 var list = JSON.parse(sessionStorage.getItem("favoritesSS"));
 if (!Array.isArray(list)) {
     list = [];
