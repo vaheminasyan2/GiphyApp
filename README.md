@@ -6,3 +6,5 @@ We choose Sports as our main topic. User can also add a subtopic by entering a s
 By default all the gifs will be rendered as still images. By clicking on each image it will play/pause gif.
 
 Under each gif we display its rating (PG, G so on).
+
+![Screenshot](images/screenshot.PNG)
