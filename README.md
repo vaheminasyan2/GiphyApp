@@ -8,3 +8,13 @@ By default all the gifs will be rendered as still images. By clicking on each im
 Under each gif we display its rating (PG, G so on).
 
 ![Screenshot](images/screenshot.PNG)
+
+### Technology used:
+* JavaScript
+* AJAX
+* jQuery
+* Bootstrap 
+* HTML
+* CSS
+* GIPHY API
+* sessionStorage.
